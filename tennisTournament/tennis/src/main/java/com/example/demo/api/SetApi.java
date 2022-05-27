@@ -1,8 +1,8 @@
 package com.example.demo.api;
 
 
-import com.example.demo.Exceptions.ResourceNotFound;
 import com.example.demo.entity.Set;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.impl.SetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class SetApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Set> getById(@PathVariable(value = "id") Integer id) throws ResourceNotFound {
-        Set set = setService.getById(id).orElseThrow(() -> new ResourceNotFound("Id not found on " + id));
+    public ResponseEntity<Set> getById(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+        Set set = setService.getById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found on " + id));
         return ResponseEntity.ok().body(set);
     }
 
@@ -35,8 +35,8 @@ public class SetApi {
 
     @PostMapping("/update/{id}")
     public ResponseEntity<Set> update(@PathVariable(value = "id") Integer id,
-                                      @RequestBody Set setDetails) throws ResourceNotFound{
-        Set set = setService.getById(id).orElseThrow(() -> new ResourceNotFound("Id not found on " + id));
+                                      @RequestBody Set setDetails) throws ResourceNotFoundException{
+        Set set = setService.getById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found on " + id));
         set.setId(setDetails.getId());
         set.setMatch(setDetails.getMatch());
         set.setSetNumber(setDetails.getSetNumber());
@@ -49,8 +49,8 @@ public class SetApi {
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> delete(@PathVariable(value = "id") Integer id) throws ResourceNotFound {
-        Set set = setService.getById(id).orElseThrow(() -> new ResourceNotFound("Id not found on " + id));
+    public Map<String, Boolean> delete(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+        Set set = setService.getById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found on " + id));
         setService.deleteById(id);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

@@ -14,7 +14,7 @@ import java.util.Map;
 @CrossOrigin(maxAge = 3600)
 @RequestMapping("/tournaments")
 
-public class TournamentRestController {
+public class TournamentApi {
     private TournamentService tournamentService;
 
     @GetMapping

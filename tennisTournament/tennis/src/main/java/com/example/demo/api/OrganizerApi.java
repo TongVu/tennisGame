@@ -14,7 +14,7 @@ import java.util.Map;
 @CrossOrigin(maxAge = 3600)
 @RequestMapping("/organizers")
 
-public class OrganizerRestController {
+public class OrganizerApi {
     private OrganizerService organizerService;
 
     @GetMapping
