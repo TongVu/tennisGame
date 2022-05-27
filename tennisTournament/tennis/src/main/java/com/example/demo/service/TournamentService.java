@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TournamentService {
-    List<Tournament> getAllTournament();
+    List<Tournament> getAll();
 
     void saveTournament(Tournament tournament);
 
-    Optional<Tournament> findTournamentByName(String name);
+    Optional<Tournament> findById(String name);
 
-    void deleteTournamentByName(String name);
+    void deleteById(String name);
 
 }

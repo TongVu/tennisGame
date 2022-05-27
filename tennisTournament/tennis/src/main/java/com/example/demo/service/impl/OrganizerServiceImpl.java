@@ -10,27 +10,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class OrganizerServiceImpl implements OrganizerService {
+    @Autowired
     OrganizerRepository organizerRepository;
 
     @Override
-    public List<Organizer> getAllOrganizer() {
+    public List<Organizer> getAll() {
         return organizerRepository.findAll();
     }
 
     @Override
-    public void saveOrganizer(Organizer organizer) {
+    public void save(Organizer organizer) {
         organizerRepository.save(organizer);
     }
 
     @Override
-    public Optional<Organizer> findOrganizerByName(String name) {
-        return organizerRepository.findOrganizerByName(name);
+    public Optional<Organizer> findById(String name) {
+        return organizerRepository.findById(name);
     }
 
+
     @Override
-    public void deleteOrganizerByName(String name) {
-        organizerRepository.deleteOrganizerByName(name);
+    public void deleteById(String name) {
+        organizerRepository.deleteById(name);
     }
 }

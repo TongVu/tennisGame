@@ -6,42 +6,41 @@ import com.example.demo.service.OrganizerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("/api/organizers")
+@RequestMapping("/organizers")
 
 public class OrganizerRestController {
     private OrganizerService organizerService;
 
     @GetMapping
     public List<Organizer> getAll() {
-        return organizerService.getAllOrganizer();
+        return organizerService.getAll();
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<Organizer> getOrganizerByName(@PathVariable(value = "name") String name)
             throws ResourceNotFoundException {
-        Organizer organizer = organizerService.findOrganizerByName(name)
+        Organizer organizer = organizerService.findById(name)
                 .orElseThrow(() -> new ResourceNotFoundException("Organizer not found on: " + name));
         return ResponseEntity.ok().body(organizer);
     }
 
     @PostMapping("/add")
     public void create(@RequestBody Organizer organizer) {
-        organizerService.saveOrganizer(organizer);
+        organizerService.save(organizer);
     }
 
     @DeleteMapping("/delete/{name}")
     public Map<String, Boolean> delete(@PathVariable(value = "name") String name)
             throws ResourceNotFoundException {
-        Organizer organizer = organizerService.findOrganizerByName (name)
+        Organizer organizer = organizerService.findById (name)
                 .orElseThrow(() -> new ResourceNotFoundException("Organizer not found on: " + name));
-        organizerService.deleteOrganizerByName(name);
+        organizerService.deleteById(name);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;

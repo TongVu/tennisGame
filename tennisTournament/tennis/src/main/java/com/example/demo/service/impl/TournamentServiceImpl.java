@@ -3,19 +3,20 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Tournament;
 import com.example.demo.repository.TournamentRepository;
 import com.example.demo.service.TournamentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class TournamentServiceImpl implements TournamentService {
+    @Autowired
     TournamentRepository tournamentRepository;
 
 
     @Override
-    public List<Tournament> getAllTournament() {
+    public List<Tournament> getAll() {
         return tournamentRepository.findAll();
     }
 
@@ -25,12 +26,12 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Optional<Tournament> findTournamentByName(String name) {
-        return tournamentRepository.findTournamentByName(name);
+    public Optional<Tournament> findById(String name) {
+        return tournamentRepository.findById(name);
     }
 
     @Override
-    public void deleteTournamentByName(String name) {
-        tournamentRepository.deleteTournamentByName(name);
+    public void deleteById(String name) {
+        tournamentRepository.deleteById(name);
     }
 }
