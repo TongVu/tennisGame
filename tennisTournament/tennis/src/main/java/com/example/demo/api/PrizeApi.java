@@ -1,8 +1,8 @@
 package com.example.demo.api;
 
 
-import com.example.demo.Exceptions.ResourceNotFound;
 import com.example.demo.entity.Prize;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.PrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +22,9 @@ public class PrizeApi {
         return prizeService.getAll();
     }
     @GetMapping("/{id}")
-    public ResponseEntity <Prize> getById(@PathVariable(value = "id")Integer id)throws ResourceNotFound {
+    public ResponseEntity <Prize> getById(@PathVariable(value = "id")Integer id)throws ResourceNotFoundException {
         Prize prize=prizeService.getById(id)
-                .orElseThrow(()->new ResourceNotFound("Id does not exist "+id));
+                .orElseThrow(()->new ResourceNotFoundException("Id does not exist "+id));
         return ResponseEntity.ok().body(prize);
     }
     @PostMapping("/add")
@@ -32,8 +32,8 @@ public class PrizeApi {
         return prizeService.save(prize);
     }
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> delete(@PathVariable(value = "id") Integer id) throws ResourceNotFound {
-        Prize prize = prizeService.getById(id).orElseThrow(() -> new ResourceNotFound("Id does not exist " + id));
+    public Map<String, Boolean> delete(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+        Prize prize = prizeService.getById(id).orElseThrow(() -> new ResourceNotFoundException("Id does not exist " + id));
         prizeService.deleteById(id);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
@@ -42,8 +42,8 @@ public class PrizeApi {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Prize> update(@PathVariable(value = "id") Integer id,
-                                        @RequestBody Prize prizeDetails) throws ResourceNotFound{
-        Prize prize = prizeService.getById(id).orElseThrow(() -> new ResourceNotFound("Id does not exist " + id));
+                                        @RequestBody Prize prizeDetails) throws ResourceNotFoundException{
+        Prize prize = prizeService.getById(id).orElseThrow(() -> new ResourceNotFoundException("Id does not exist " + id));
         prize.setId(prizeDetails.getId());
         prize.setPrizeType(prizeDetails.getPrizeType());
         prize.setPrizeAmount(prizeDetails.getPrizeAmount());
