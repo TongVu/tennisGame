@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,17 +8,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-public class Round {
+public class Refree {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 250)
+    private String name;
 
-    private String roundName;
+    private String phoneNumber;
 
-    private String roundType;
-
+    private String address;
 }
