@@ -25,7 +25,7 @@ public class RoundApi {
         return roundService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Round> getById(@PathVariable(value = "id")Integer id) throws ResourceNotFoundException {
         Round round = roundService.findRoundById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found:" + id));
         return ResponseEntity.ok().body(round);
@@ -36,7 +36,7 @@ public class RoundApi {
         return roundService.saveRound(round);
     }
 
-    @PutMapping("{id")
+    @PutMapping("/{id}")
     public ResponseEntity<Round> update(@PathVariable(value = "id")Integer id,
                                         @RequestBody Round roundDetail) throws ResourceNotFoundException{
         Round round = roundService.findRoundById(id)
@@ -48,8 +48,8 @@ public class RoundApi {
         return ResponseEntity.ok(roundUpdate);
     }
 
-    @DeleteMapping("/id")
-    public Map<String, Boolean> delete(@PathVariable(value = "id")Integer id) throws Exception{
+    @DeleteMapping("/{id}")
+    public Map<String, Boolean> delete(@PathVariable(value = "id")Integer id) throws ResourceNotFoundException{
         Round round = roundService.findRoundById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Id not found: " + id));
         roundService.deleteRoundById(id);

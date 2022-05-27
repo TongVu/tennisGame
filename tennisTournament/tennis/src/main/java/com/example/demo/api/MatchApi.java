@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.logging.Handler;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class MatchApi {
         return matchList;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Match> getById(@PathVariable(value = "id")Integer id) throws ResourceNotFoundException {
         Match match = matchService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found:" + id));
@@ -37,7 +36,7 @@ public class MatchApi {
     @PostMapping("/add")
     public Match create(@RequestBody Match match){return matchService.saveMatch(match);}
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Match> update(@PathVariable(value = "id")Integer id,
                                         @RequestBody Match matchDetail) throws ResourceNotFoundException{
         Match match = matchService.findById(id). orElseThrow(() -> new ResourceNotFoundException("ID not found:" +id));
@@ -53,8 +52,8 @@ public class MatchApi {
        return ResponseEntity.ok(matchUpdate);
 
     }
-    @DeleteMapping("{id")
-    public Map<String, Boolean> delete(@PathVariable(value = "id")Integer id) throws Exception{
+    @DeleteMapping("/{id}")
+    public Map<String, Boolean> delete(@PathVariable(value = "id")Integer id) throws ResourceNotFoundException{
         Match match = matchService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Match not found:" + id));
         matchService.deleteMatchById(id);
         Map<String, Boolean> response = new HashMap<>();
