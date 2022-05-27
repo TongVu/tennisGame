@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Refree {
+public class Referee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
