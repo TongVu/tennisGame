@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Builder
 @Entity
@@ -20,11 +21,14 @@ public class Stadium {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer stadiumId;
 
+    @Size(max=100)
     private String stadiumName;
 
+    @Size(max=100)
     private String stadiumAddress;
 
     private Integer seatCapacity;
 
+    @Size(max=100)
     private String stadiumLocation;
 }
