@@ -33,6 +33,9 @@ public class StadiumApi {
     return ResponseEntity.ok().body(stadium);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Stadium> update (@PathVariable(value = "id")Integer statidumId) throws ResourceNotFoundException
+
 
     @PostMapping()
     public void addStadium(@RequestBody Stadium stadium){
