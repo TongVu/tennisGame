@@ -22,7 +22,7 @@ public class OrganizerApi {
     @Autowired
     private OrganizerService organizerService;
 
-    public static final String PATH = "/organizers";
+    public static final String PATH = "/api/organizers";
 
     @GetMapping
     public ResponseEntity<List<Organizer>> getAll() {
@@ -60,5 +60,14 @@ public class OrganizerApi {
                 .orElseThrow(() -> new ResourceNotFoundException("Organizer not found on: " + name));
         organizerService.deleteById(name);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{name}")
+    public ResponseEntity<Organizer> update(@PathVariable(value = "name") String name, @RequestBody Organizer organizerDetail) throws ResourceNotFoundException {
+        Organizer editOrganizer = organizerService.findById(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Organizer not found on: " + name));
+        editOrganizer.setAddress(organizerDetail.getAddress());
+        editOrganizer.setPhoneNumber(organizerDetail.getPhoneNumber());
+        return ResponseEntity.ok(organizerService.save(editOrganizer));
     }
 }
