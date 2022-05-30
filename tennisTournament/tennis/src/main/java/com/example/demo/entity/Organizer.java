@@ -19,7 +19,6 @@ import javax.persistence.Id;
 
 public class Organizer {
     @Id
-    @Column(unique = true, nullable = false)
     private String name;
 
     @Column
