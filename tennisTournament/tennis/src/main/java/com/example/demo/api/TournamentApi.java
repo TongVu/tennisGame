@@ -3,6 +3,7 @@ package com.example.demo.api;
 import com.example.demo.entity.Tournament;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.service.TournamentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 @RequestMapping("/tournaments")
 
 public class TournamentApi {
+    @Autowired
     private TournamentService tournamentService;
 
     @GetMapping
