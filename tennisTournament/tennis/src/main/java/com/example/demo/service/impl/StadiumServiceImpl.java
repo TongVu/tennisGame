@@ -31,12 +31,7 @@ public class StadiumServiceImpl implements StadiumService {
 
     @Override
     public void deleteStadiumById(Integer id ){
-        stadiumRepository.deleteStadiumById(id);
-    }
-
-    @Override
-    public Optional<Stadium> getById(Integer id) {
-        return stadiumRepository.findById();
+        stadiumRepository.deleteById(id);
     }
 
 }

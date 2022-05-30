@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @CrossOrigin(maxAge = 3600)
 @RequestMapping(StadiumApi.PATH)
 public class StadiumApi {
     public static final String PATH ="/api/stadium";
-    private final StadiumService stadiumService;
-
     @Autowired
-    private Stadium stadium;
+    private StadiumService stadiumService;
 
     @GetMapping()
     public List<Stadium> getAllStadium(){
@@ -43,10 +40,13 @@ public class StadiumApi {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStadium(@PathVariable Integer id){
-        Stadium stadium = stadiumService.findStadiumById(id).get();
+    public void deleteStadium(@PathVariable Integer id) throws ResourceNotFoundException {
+        Stadium stadium = stadiumService.findStadiumById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Stadium not found on this " + id ));
         stadiumService.deleteStadiumById(stadium.getStadiumId());
     }
+
+
 
 
 

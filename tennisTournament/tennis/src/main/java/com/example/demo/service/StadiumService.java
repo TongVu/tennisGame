@@ -16,6 +16,4 @@ public interface StadiumService {
 
     void deleteStadiumById(Integer id);
 
-
-    Optional<Stadium> getById(Integer id);
 }
